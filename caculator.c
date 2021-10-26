@@ -188,8 +188,10 @@ start:
             }
             read_ptr++;
         }
-        push(number_calculus_stack, number_buffer);
-        number_buffer = 0; // clear number buffer
+        if (number_buffer_is_empty == true)
+        {
+            push(number_calculus_stack, get_and_clear_number_buffer(&number_buffer, &number_buffer_is_empty));
+        }
         while (!is_empty(postfix_praser_stack))
         {
             struct result r = safe_top_and_pop(postfix_praser_stack);
@@ -229,7 +231,7 @@ bool read_and_validate(melon_stack postfix_praser_stack, melon_stack number_calc
         // operators
         if (*number_buffer_is_empty == true)
         {
-            push(number_calculus_stack, get_and_clear_number_buffer(number_buffer_ptr,number_buffer_is_empty));
+            push(number_calculus_stack, get_and_clear_number_buffer(number_buffer_ptr, number_buffer_is_empty));
         }
 
         while (true)
@@ -286,7 +288,7 @@ bool read_and_validate(melon_stack postfix_praser_stack, melon_stack number_calc
         {
             if (*number_buffer_is_empty == true)
             {
-                push(number_calculus_stack, get_and_clear_number_buffer(number_buffer_ptr,number_buffer_is_empty));
+                push(number_calculus_stack, get_and_clear_number_buffer(number_buffer_ptr, number_buffer_is_empty));
             }
             while (true)
             {
